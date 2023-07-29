@@ -4,18 +4,15 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3609313352946430885L;
-	
+
 	private String userId;
 	private String tipo;
 	private String name;
 	private String userName;
 	private String pass;
 	public static int cod = 1;
-	
+
 	public User(String userId, String tipo, String name, String userName, String pass) {
 		super();
 		this.userId = userId;
@@ -29,7 +26,7 @@ public class User implements Serializable{
 	public String getTipo() {
 		return tipo;
 	}
-	
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
@@ -65,6 +62,5 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 }

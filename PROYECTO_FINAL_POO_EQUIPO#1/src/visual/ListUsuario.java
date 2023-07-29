@@ -37,9 +37,6 @@ public class ListUsuario extends JDialog {
 	private JButton btnCancelar;
 	private User selected = null;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListUsuario dialog = new ListUsuario();
@@ -50,10 +47,9 @@ public class ListUsuario extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ListUsuario() {
+		setTitle("LISTADO DE USUARIOS");
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
@@ -81,8 +77,8 @@ public class ListUsuario extends JDialog {
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
 								String userId = table.getValueAt(ind, 0).toString();
-								 selected = Tienda.getInstance().UserById(userId);
-							}//listo
+								selected = Tienda.getInstance().UserById(userId);
+							}
 						}
 					});
 					scrollPane.setViewportView(table);
@@ -100,57 +96,55 @@ public class ListUsuario extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{		
-			btnDelete = new JButton("Eliminar");
-			btnDelete.setBackground(new Color(204, 0, 0));
-			btnDelete.setEnabled(false);
-			btnDelete.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (selected != null) {
-						int option = JOptionPane.showConfirmDialog(null,
-								"Estas seguro de querer eliminar el usuario?",
-								"Eliminar Usuario", JOptionPane.OK_CANCEL_OPTION);
-						if(option == JOptionPane.OK_OPTION) {
-							Tienda.getInstance().eliminarUsuario(selected);
-							loadUsers();
+				btnDelete = new JButton("ELIMINAR");
+				btnDelete.setBackground(new Color(204, 0, 0));
+				btnDelete.setEnabled(false);
+				btnDelete.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (selected != null) {
+							int option = JOptionPane.showConfirmDialog(null,
+									"¿Estás seguro de querer eliminar el usuario?",
+									"Eliminar Usuario", JOptionPane.OK_CANCEL_OPTION);
+							if(option == JOptionPane.OK_OPTION) {
+								Tienda.getInstance().eliminarUsuario(selected);
+								loadUsers();
+							}
 						}
 					}
-				}
-			});
-			buttonPane.add(btnDelete);
-		}
-		
-		{
-			btnCancelar = new JButton("Cancelar");
-			btnCancelar.setBackground(new Color(102, 0, 255));
-			btnCancelar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			{
-			    btnUpdate = new JButton("Modificar");
-			    btnUpdate.setBackground(new Color(102, 0, 255));
-			    btnUpdate.addActionListener(new ActionListener() {
-			        public void actionPerformed(ActionEvent e) {
-			            if (selected != null) {
-			                ModificarUsuario modificarUsuarioDialog = new ModificarUsuario(selected);
-			                modificarUsuarioDialog.setModal(true);
-			                modificarUsuarioDialog.setVisible(true);
-			                loadUsers();
-			            }
-			        }
-			    });
-			    btnUpdate.setEnabled(false);
-			    buttonPane.add(btnUpdate);
+				});
+				buttonPane.add(btnDelete);
 			}
-			btnCancelar.setActionCommand("Cancel");
-			buttonPane.add(btnCancelar);
+
+			{
+				btnCancelar = new JButton("CANCELAR");
+				btnCancelar.setBackground(new Color(102, 0, 255));
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				{
+					btnUpdate = new JButton("MODIFICAR");
+					btnUpdate.setBackground(new Color(102, 0, 255));
+					btnUpdate.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (selected != null) {
+								ModificarUsuario modificarUsuarioDialog = new ModificarUsuario(selected);
+								modificarUsuarioDialog.setModal(true);
+								modificarUsuarioDialog.setVisible(true);
+								loadUsers();
+							}
+						}
+					});
+					btnUpdate.setEnabled(false);
+					buttonPane.add(btnUpdate);
+				}
+				btnCancelar.setActionCommand("Cancel");
+				buttonPane.add(btnCancelar);
+			}
 		}
-	}
 		loadUsers();
 	}
-	
-	//listo
 
 	public static void loadUsers() {
 		model.setRowCount(0);

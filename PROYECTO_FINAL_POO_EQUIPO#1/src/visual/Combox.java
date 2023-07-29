@@ -90,6 +90,7 @@ public class Combox extends JDialog {
 	}
 
 	public Combox() {
+		setTitle("REGISTRO COMBOS");
 		codigo = ("CMB-"+ Tienda.getInstance().getMisCombos().size());
 		setBounds(100, 100, 845, 736);
 		setLocationRelativeTo(null);
@@ -444,7 +445,7 @@ public class Combox extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -452,7 +453,7 @@ public class Combox extends JDialog {
 				});
 
 				{
-					btnCrear = new JButton("Crear");
+					btnCrear = new JButton("CREAR");
 					btnCrear.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 
@@ -473,9 +474,6 @@ public class Combox extends JDialog {
 								}
 								Tienda.getInstance().getMisCombos().add(aux);
 								JOptionPane.showMessageDialog(null, "Registro Exitoso", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-
-
-								Tienda.getInstance().guardarCombosEnArchivo();
 
 								Reset();
 								load(0);

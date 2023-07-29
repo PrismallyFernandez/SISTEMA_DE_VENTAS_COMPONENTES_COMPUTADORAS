@@ -30,24 +30,11 @@ import java.awt.Insets;
 
 public class Principal extends JFrame {
 
-	
-	
-	
 
-	
-	static Socket sfd = null;
-	static DataInputStream EntradaSocket;
-	static DataOutputStream SalidaSocket;
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private  Dimension dim;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,10 +48,9 @@ public class Principal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Principal() {
+		setTitle("PRINCIPAL - MEN\u00DA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		dim = getToolkit().getScreenSize();
@@ -75,12 +61,12 @@ public class Principal extends JFrame {
 		menuBar.setFont(new Font("SansSerif", Font.BOLD, 15));
 		menuBar.setBackground(Color.WHITE);
 		setJMenuBar(menuBar);
-		
-		
+
+
 		JMenu mnComponentes = new JMenu("Componentes");
 		mnComponentes.setIcon(new ImageIcon(Principal.class.getResource("/images/rom.png")));
 		menuBar.add(mnComponentes);
-		
+
 		JMenuItem mntmRegComp = new JMenuItem("Registrar Componente");
 		mntmRegComp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +76,7 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmRegComp);
-		
+
 		JMenuItem mntmListadoDeComp = new JMenuItem("Listado de Componentes");
 		mntmListadoDeComp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +86,7 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmListadoDeComp);
-		
+
 		JMenuItem mntmElaborarCombo = new JMenuItem("Elaborar Combo");
 		mntmElaborarCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +96,7 @@ public class Principal extends JFrame {
 			}
 		});
 		mnComponentes.add(mntmElaborarCombo);
-		
+
 		JMenuItem mntmListadoDeCombos = new JMenuItem("Listado de Combos");
 		mntmListadoDeCombos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +109,7 @@ public class Principal extends JFrame {
 		JMenu mnVentas = new JMenu("Ventas");
 		mnVentas.setIcon(new ImageIcon(Principal.class.getResource("/images/bolsa-de-la-compra.png")));
 		menuBar.add(mnVentas);
-		
+
 		JMenuItem mntmFacturar = new JMenuItem("Facturar");
 		mntmFacturar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,10 +119,8 @@ public class Principal extends JFrame {
 			}
 		});
 		mnVentas.add(mntmFacturar);
-		
-//		aqui va
-		
-		JMenuItem mntmListadoFactura = new JMenuItem("Listado Factura");
+
+		JMenuItem mntmListadoFactura = new JMenuItem("Listado de Facturas");
 		mntmListadoFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoFactura list = new ListadoFactura();
@@ -145,27 +129,24 @@ public class Principal extends JFrame {
 			}
 		});
 		mnVentas.add(mntmListadoFactura);
-		
-		
-		
-		//aqui termina
-		JMenu mmAdministrador = new JMenu("Cliente");
+
+		JMenu mmAdministrador = new JMenu("Clientes");
 		mmAdministrador.setIcon(new ImageIcon(Principal.class.getResource("/images/objetivo (1).png")));
 		menuBar.add(mmAdministrador);
-		
-	
-		
-		JMenuItem mntmListadoClientes_1 = new JMenuItem("Listado clientes");
+
+
+
+		JMenuItem mntmListadoClientes_1 = new JMenuItem("Listado de Clientes");
 		mntmListadoClientes_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoCliente list = new ListadoCliente();
 				list.setModal(true);
 				list.setVisible(true);
-				
+
 			}
 		});
 		mmAdministrador.add(mntmListadoClientes_1);
-		
+
 		JMenuItem mntmRegistrarCliente = new JMenuItem("Registrar Cliente");
 		mntmRegistrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -175,24 +156,24 @@ public class Principal extends JFrame {
 			}
 		});
 		mmAdministrador.add(mntmRegistrarCliente);
-		
-		
-		JMenu mnUser = new JMenu("Usuario");
+
+
+		JMenu mnUser = new JMenu("Usuarios");
 		mnUser.setIcon(new ImageIcon(Principal.class.getResource("/images/recursos-humanos.png")));
 		menuBar.add(mnUser);
-		
+
 		JMenuItem mntmRegistrarUsuario = new JMenuItem("Registrar Usuario");
 		mntmRegistrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegUser reg = new RegUser();
 				reg.setModal(true);
 				reg.setVisible(true);
-				
+
 			}
 		});
 		mnUser.add(mntmRegistrarUsuario);
-		
-		JMenuItem mntmListarUsuarios = new JMenuItem("Listado Usuarios");
+
+		JMenuItem mntmListarUsuarios = new JMenuItem("Listado de Usuarios");
 		mntmListarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListUsuario listUser = new ListUsuario();
@@ -201,14 +182,12 @@ public class Principal extends JFrame {
 			}
 		});
 		mnUser.add(mntmListarUsuarios);
-		
-		
-		//resumen
-		
+
+
 		JMenu mnResumen = new JMenu("Resumen");
 		mnResumen.setIcon(new ImageIcon(Principal.class.getResource("/images/escribe.png")));
 		menuBar.add(mnResumen);
-		
+
 		JMenuItem mntmListadoClientes = new JMenuItem("Datos Generales");
 		mntmListadoClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,36 +197,31 @@ public class Principal extends JFrame {
 			}
 		});
 		mnResumen.add(mntmListadoClientes);
-		
-		
-		
+
+
+
 		JMenu mnExit = new JMenu("Salir");
 		mnExit.setIcon(new ImageIcon(Principal.class.getResource("/images/salida (2).png")));
 		mnExit.setBackground(Color.WHITE);
 		menuBar.add(mnExit);
-		
+
 		JMenuItem mntmExit = new JMenuItem("Salir");
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int opcion = JOptionPane.showConfirmDialog(null,"¿Estás seguro que deseas salir del programa?","Confirmar Salida",JOptionPane.YES_NO_OPTION);
 				if (opcion == JOptionPane.YES_OPTION) {
-				    System.exit(0);
+					System.exit(0);
 				}
 			}
 		});
 		mnExit.add(mntmExit);
-		
-		
-		
-		
-		
-		
+
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/images/principalbg.png")));
 		lblNewLabel.setBounds(0, 0, 1933, 953);

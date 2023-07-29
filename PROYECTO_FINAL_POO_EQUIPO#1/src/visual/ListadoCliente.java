@@ -51,6 +51,7 @@ public class ListadoCliente extends JDialog {
 
 
 	public ListadoCliente() {
+		setTitle("LISTADO CLIENTES");
 		setBounds(100, 100, 581, 345);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -97,7 +98,7 @@ public class ListadoCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setEnabled(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -118,14 +119,14 @@ public class ListadoCliente extends JDialog {
 			}
 
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
 				{
-					btnUpdate = new JButton("Modificar");
+					btnUpdate = new JButton("MODIFICAR");
 					btnUpdate.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							if (selected != null) {

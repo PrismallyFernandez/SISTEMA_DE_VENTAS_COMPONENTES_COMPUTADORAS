@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Factura implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 808250632842021834L;
 	private String codigo;
 	private ArrayList<Componente> misComponentes;
@@ -17,7 +15,7 @@ public class Factura implements Serializable {
 	private Cliente cliente;
 	private String monto;
 	private Date fecha;
-	
+
 	public Factura(String codigo, ArrayList<Componente> misComponentes,ArrayList<Combo>misCombos, Cliente cliente, String monto) {
 		super();
 		this.codigo = codigo;
@@ -44,13 +42,6 @@ public class Factura implements Serializable {
 		this.misComponentes = misComponentes;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	public ArrayList<Combo> getMisCombos() {
 		return misCombos;
@@ -67,12 +58,20 @@ public class Factura implements Serializable {
 	public void setMonto(String monto) {
 		this.monto = monto;
 	}
-    public Date getFecha() {
-        return fecha;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 }

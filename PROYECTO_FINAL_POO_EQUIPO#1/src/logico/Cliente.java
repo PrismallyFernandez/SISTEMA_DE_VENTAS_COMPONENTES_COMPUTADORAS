@@ -1,23 +1,31 @@
 package logico;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Cliente implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -7660726291441461415L;
 	private String cedula;
 	private String nombre;
 	private String telefono;
 	private String direccion;
-	
+	private ArrayList<Factura> misFacturas;
+
+
 	public Cliente(String cedula, String nombre, String telefono, String direccion) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
+		misFacturas = new ArrayList();
+
+	}
+
+	public Cliente() {
+		super();
+		misFacturas = new ArrayList();
 	}
 
 	public String getCedula() {
@@ -50,5 +58,13 @@ public class Cliente implements Serializable{
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public ArrayList<Factura> getMisFacturas() {
+		return misFacturas;
+	}
+
+	public void setMisFacturas(ArrayList<Factura> misFacturas) {
+		this.misFacturas = misFacturas;
 	}
 }

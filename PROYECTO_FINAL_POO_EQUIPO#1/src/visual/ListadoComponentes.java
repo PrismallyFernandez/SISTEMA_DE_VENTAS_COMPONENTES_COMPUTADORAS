@@ -34,9 +34,7 @@ import java.awt.Color;
 
 public class ListadoComponentes extends JDialog {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -47,9 +45,7 @@ public class ListadoComponentes extends JDialog {
 	private JButton btnCancelar;
 	private Componente selected = null;
 	private JButton btnUpdate;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ListadoComponentes dialog = new ListadoComponentes();
@@ -60,10 +56,9 @@ public class ListadoComponentes extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ListadoComponentes() {
+		setTitle("LISTADO DE COMPONENTES");
 		setResizable(false);
 		setBounds(100, 100, 852, 345);
 		setLocationRelativeTo(null);
@@ -72,7 +67,7 @@ public class ListadoComponentes extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(255, 255, 255));
@@ -89,7 +84,7 @@ public class ListadoComponentes extends JDialog {
 				comboBox.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						load(comboBox.getSelectedIndex());
-						
+
 					}
 				});
 				comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"<Todos>", "MotherBoards", "Microprocesadores", "Memorias RAM", "Discos Duros"}));
@@ -107,7 +102,7 @@ public class ListadoComponentes extends JDialog {
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
 					String[] headers = {"Numero de serie","Marca","Modelo", "Cantidad", "Descripcion", "Precio", "Tipo de Componente"};
-					
+
 					table = new JTable();
 					table.setBackground(new Color(255, 255, 255));
 					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -119,7 +114,7 @@ public class ListadoComponentes extends JDialog {
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
 								String codigo = table.getValueAt(ind, 0).toString();
-								 selected = Tienda.getInstance().ComponenteByCodigo(codigo);
+								selected = Tienda.getInstance().ComponenteByCodigo(codigo);
 							}
 						}
 					});
@@ -131,14 +126,14 @@ public class ListadoComponentes extends JDialog {
 			}
 		}
 		{
-			
+
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setForeground(new Color(0, 0, 0));
 				btnDelete.setBackground(new Color(204, 0, 0));
 				btnDelete.setEnabled(false);
@@ -157,9 +152,9 @@ public class ListadoComponentes extends JDialog {
 				});
 				buttonPane.add(btnDelete);
 			}
-			
+
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setForeground(new Color(0, 0, 0));
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
@@ -168,7 +163,7 @@ public class ListadoComponentes extends JDialog {
 					}
 				});
 				{
-					btnUpdate = new JButton("Modificar");
+					btnUpdate = new JButton("MODIFICAR");
 					btnUpdate.setForeground(new Color(0, 0, 0));
 					btnUpdate.setBackground(new Color(102, 0, 255));
 					btnUpdate.addActionListener(new ActionListener() {
@@ -177,7 +172,7 @@ public class ListadoComponentes extends JDialog {
 							list.setModal(true);
 							list.setVisible(true);
 							load(0);
-							
+
 						}
 					});
 					btnUpdate.setEnabled(false);
@@ -195,7 +190,7 @@ public class ListadoComponentes extends JDialog {
 		rows = new Object[model.getColumnCount()];
 		if(index == 0){
 			for (Componente aux : Tienda.getInstance().getMisComponentes()) {
-				
+
 				rows[0] = aux.getNumSerie();
 				rows[1] = aux.getMarca();
 				rows[2] = aux.getModelo();
@@ -215,14 +210,14 @@ public class ListadoComponentes extends JDialog {
 					rows[6] = "MotherBoard";
 				}
 				model.addRow(rows);
-			  
+
 			}
 		}
-		
+
 		if(index == 1){
 			for (Componente aux : Tienda.getInstance().getMisComponentes()) {
 				if(aux instanceof Motherboard){
-					
+
 					rows[0] = aux.getNumSerie();
 					rows[1] = aux.getMarca();
 					rows[2] = aux.getModelo();

@@ -38,6 +38,7 @@ public class RegCliente extends JDialog {
 
 
 	public RegCliente(Cliente cliente) {
+		setTitle("REGISTRAR CLIENTES");
 		selected = cliente;
 
 		if (selected == null) {
@@ -105,13 +106,13 @@ public class RegCliente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("");
+				JButton btnregistrar = new JButton("REGISTRAR");
 				if (selected == null) {
-					okButton.setText("Registrar");
+					btnregistrar.setText("Registrar");
 				} else {
-					okButton.setText("Modificar");
+					btnregistrar.setText("Modificar");
 				}
-				okButton.addActionListener(new ActionListener() {
+				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (!camposLlenos()) {
 							JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos", "Registro de cliente", JOptionPane.WARNING_MESSAGE);
@@ -137,9 +138,9 @@ public class RegCliente extends JDialog {
 
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnregistrar.setActionCommand("OK");
+				buttonPane.add(btnregistrar);
+				getRootPane().setDefaultButton(btnregistrar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");

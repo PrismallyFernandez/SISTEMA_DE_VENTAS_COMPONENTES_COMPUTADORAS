@@ -4,7 +4,7 @@ public class Micro extends Componente {
 
 	private String socket;
 	private float velocidad;
-	
+
 	public Micro(String numSerie, int stock, String descripcion, float precio, String modelo, String marca, String socket,
 			float velocidad) {
 		super(numSerie, stock, descripcion, precio, modelo, marca);

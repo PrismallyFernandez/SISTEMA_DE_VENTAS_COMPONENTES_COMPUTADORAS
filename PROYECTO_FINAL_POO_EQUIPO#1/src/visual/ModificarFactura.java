@@ -53,7 +53,7 @@ public class ModificarFactura extends JDialog {
 	private JButton btnLimpiar;
 	private JButton btnFacturar;
 	private JButton btnSetear;
-	
+
 	private String tipo;
 	private Componente selected = null;
 	private Combo selectedC = null;
@@ -65,7 +65,7 @@ public class ModificarFactura extends JDialog {
 	private static JTextField txtTotal;
 	private static ArrayList<Componente> componentesFactura = new ArrayList<Componente>();
 	private static ArrayList<Componente> temporal = copiarPrueba();                         //Tienda.getInstance().copiarArray();
-	
+
 	private static ArrayList<Combo> combosFactura = new ArrayList<Combo>();
 	private static ArrayList<Combo> combosTemp =  copiarCombo();  //Tienda.getInstance().copiarArrayCombo();
 	private  Componente selected_1 = null;
@@ -74,13 +74,10 @@ public class ModificarFactura extends JDialog {
 	private boolean control;
 	private Cliente auxCliente = null;
 	private JTextField textDate;
-	
-	
+
+
 	private Factura facturaSeleccionada;
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ModificarFactura dialog = new ModificarFactura(null);
@@ -89,24 +86,23 @@ public class ModificarFactura extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ModificarFactura(Factura facturaSeleccionada) {
+		setTitle("MODIFICAR FACTURAS");
 		setResizable(false);
-	    this.facturaSeleccionada = facturaSeleccionada;
-	    Combo copy = new Combo(copiarListaProfunda(facturaSeleccionada.getMisComponentes()), null, null, 0, 0);
-        Combo combo= new Combo (copiarListaProfunda(copy.getMisComponentes()), null, null, 0,0);
-        
-        
-        
+		this.facturaSeleccionada = facturaSeleccionada;
+		Combo copy = new Combo(copiarListaProfunda(facturaSeleccionada.getMisComponentes()), null, null, 0, 0);
+		Combo combo= new Combo (copiarListaProfunda(copy.getMisComponentes()), null, null, 0,0);
+
+
+
 		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
 		System.out.println(Tienda.getInstance().getMisCombos().size());
 		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
-		
+
 		inicializar();
 		setBounds(100, 100, 1046, 515);
 		setLocationRelativeTo(null);
@@ -128,7 +124,7 @@ public class ModificarFactura extends JDialog {
 				panel.add(scrollPane);
 				{
 					String[] headers = {"Numero de serie","Tipo de Componente","Marca","Modelo", "Stock", "Precio", "Subtotal" };
-					
+
 					table = new JTable();
 					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					scrollPane.setViewportView(table);
@@ -137,13 +133,11 @@ public class ModificarFactura extends JDialog {
 							int ind = table.getSelectedRow();
 							if (ind >= 0 ) {
 								btnDelete.setEnabled(true);
-								
+
 								btnSetear.setEnabled(true);
 								String codigo = table.getValueAt(ind, 0).toString();
-								//int stock = (int) table.getValueAt(ind, 4);
 								selected = buscarComponenteBySerieFactura(codigo);
 								selectedC = buscarCombosBySerieFactura(codigo);
-								//Agregarspinner.setValue(selected != null ? selected.getStock() : selectedC.getStock());
 							}
 						}
 					});
@@ -177,20 +171,20 @@ public class ModificarFactura extends JDialog {
 					btnBuscar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							//btnFacturar.setEnabled(true);
-							
+
 							auxCliente = Tienda.getInstance().ClienteByCedula(CedulatextField.getText());
 							if(auxCliente != null){
-									txtNombre.setText(auxCliente.getNombre()); 
-									txtDireccion.setText(auxCliente.getDireccion());
-									txtTelefono.setText(auxCliente.getCedula());
-									control = true;
-					
+								txtNombre.setText(auxCliente.getNombre()); 
+								txtDireccion.setText(auxCliente.getDireccion());
+								txtTelefono.setText(auxCliente.getCedula());
+								control = true;
+
 							}else {
 								txtNombre.setEditable(true);
 								txtTelefono.setEditable(true);
 								txtDireccion.setEditable(true);
 								control = false;
-							  }
+							}
 						}
 					});
 					btnBuscar.setBounds(355, 7, 89, 23);
@@ -254,66 +248,65 @@ public class ModificarFactura extends JDialog {
 							String serie = SerietextField.getText().toString();
 							System.out.println(serie);
 							Componente componente = buscarComponenteBySerie(serie);
-							
+
 							Boolean controlador = false;
-							
+
 							ArrayList<Combo> copia = new ArrayList<Combo>(Tienda.getInstance().getMisCombos().size());
 							for (Combo comb : Tienda.getInstance().getMisCombos()) {
-									try {
-										copia.add((Combo) comb.clone());
-									} catch (CloneNotSupportedException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-								}
-							System.out.println("----------------------------------");
-							System.out.println(copia.size());
-							Combo combo = buscarComboByCodigo(serie,copia);
-							
-							
-							
-							if(componente == null && combo != null && combo.getStock()>0) {
-								int diferencia = 1;//Integer.valueOf((Integer)Agregarspinner.getValue());
-								
-								
 								try {
-									selected_2 = Tienda.getInstance().copiarCombo(combo);
+									copia.add((Combo) comb.clone());
 								} catch (CloneNotSupportedException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-								
+							}
+							System.out.println("----------------------------------");
+							System.out.println(copia.size());
+							Combo combo = buscarComboByCodigo(serie,copia);
+
+
+
+							if(componente == null && combo != null && combo.getStock()>0) {
+								int diferencia = 1;
+
+
+								try {
+									selected_2 = Tienda.getInstance().copiarCombo(combo);
+								} catch (CloneNotSupportedException e1) {
+									e1.printStackTrace();
+								}
+
 								selected_2.setStock(diferencia);
 								combo.setStock(combo.getStock()-diferencia);
 								reescribirCombo(combo);
 								combosFactura.add(selected_2);
-								
+
 								controlador = true;
 							}
 							if(componente != null && componente.getStock()>0) {
-								
-								int diferencia = 1;//Integer.valueOf((Integer)Agregarspinner.getValue());
+
+								int diferencia = 1;
 								try {
 									selected_1 = Tienda.getInstance().copiarComp(componente);
 								} catch (CloneNotSupportedException e1) {
 									e1.printStackTrace();
 									System.out.println("Hay una palomeria vigente");
 								}
-								
+
 								selected_1.setStock(diferencia);
 								componente.setStock(componente.getStock()-diferencia);
 								reescribirComponete(componente);
 								componentesFactura.add(selected_1);
-								
+
 								controlador = true;
 							} 
 							if(controlador == false) {
 								JOptionPane.showMessageDialog(null, "El Componente no existe o no esta disponible", "Error", JOptionPane.INFORMATION_MESSAGE);
 							}
-							
+
 							load();
 						}
-						
+
 					});
 					btnAnadir.setBounds(673, 72, 104, 23);
 					panel_1.add(btnAnadir);
@@ -326,7 +319,7 @@ public class ModificarFactura extends JDialog {
 					textDate.setBounds(539, 7, 162, 23);
 					panel_1.add(textDate);
 				}
-				
+
 				JLabel labelDate = new JLabel("Fecha:");
 				labelDate.setBounds(486, 10, 47, 15);
 				panel_1.add(labelDate);
@@ -349,12 +342,12 @@ public class ModificarFactura extends JDialog {
 				lblNuemroDeSerie.setBounds(121, 394, 167, 14);
 				panel.add(lblNuemroDeSerie);
 			}
-			
+
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime now = LocalDateTime.now();
-            String fechaActual = formatter.format(now);
-            textDate.setText(fechaActual);
-			
+			LocalDateTime now = LocalDateTime.now();
+			String fechaActual = formatter.format(now);
+			textDate.setText(fechaActual);
+
 			Agregarspinner = new JSpinner();
 			Agregarspinner.setValue(1);
 			Agregarspinner.setBounds(279, 392, 46, 20);
@@ -364,54 +357,52 @@ public class ModificarFactura extends JDialog {
 				btnSetear.setEnabled(false);
 				btnSetear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						if(selectedC != null) {
-						Combo nuevo = null;
+							Combo nuevo = null;
 							try {
 								nuevo = (Combo) selectedC.clone();
 							} catch (CloneNotSupportedException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							} 
-								
+
 							Combo comb = buscarCombosBySerieFactura(nuevo.getCodigo());
 							comb.setStock((Integer) Agregarspinner.getValue());
-							
-					        Agregarspinner.setValue(0);
+
+							Agregarspinner.setValue(0);
 						}
 						if(selected != null) {
 							Componente nuevo = null;
 							try {
 								nuevo = (Componente) selected.clone();
 							} catch (CloneNotSupportedException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							} 
-								
+
 							Componente comp = buscarComponenteBySerieFactura(nuevo.getNumSerie());
 							comp.setStock((Integer) Agregarspinner.getValue());
-							
-					        Agregarspinner.setValue(0);
+
+							Agregarspinner.setValue(0);
 						}
-					        load();
-					    }
-				
-					
+						load();
+					}
+
+
 				});
 				btnSetear.setBounds(337, 390, 72, 25);
 				panel.add(btnSetear);
 			}
-	
+
 		}
 		{
-			
+
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setBackground(new Color(204, 0, 0));
 				btnDelete.setEnabled(false);
 				btnDelete.addActionListener(new ActionListener() {
@@ -421,13 +412,13 @@ public class ModificarFactura extends JDialog {
 									"Estas seguro de querer eliminar el Companente de la factura?",
 									"Eliminar Componente", JOptionPane.OK_CANCEL_OPTION);
 							if(option == JOptionPane.OK_OPTION) {
-								
+
 								int diferencia = selected.getStock();
 								Componente componente = buscarComponenteBySerie(selected.getNumSerie());
 								componente.setStock(componente.getStock()+diferencia);
 								reescribirComponete(componente);
 								componentesFactura.remove(selected);
-								
+
 							}
 							load();
 						}
@@ -438,17 +429,14 @@ public class ModificarFactura extends JDialog {
 							if(option == JOptionPane.OK_OPTION) {
 								ArrayList<Combo> copia = new ArrayList<Combo>(Tienda.getInstance().getMisCombos().size());
 								for (Combo comb : Tienda.getInstance().getMisCombos()) {
-										try {
-											copia.add((Combo) comb.clone());
-										} catch (CloneNotSupportedException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
+									try {
+										copia.add((Combo) comb.clone());
+									} catch (CloneNotSupportedException e1) {
+										e1.printStackTrace();
 									}
+								}
 								int diferencia = selectedC.getStock();
-								//Combo combo = buscarCombosBySerieFactura(selectedC.getCodigo());
-								//combo.setStock(combo.getStock() + diferencia);
-								//reescribirCombo(combo);
+
 								componentesFactura.remove(selected);
 							}
 							load();
@@ -456,49 +444,48 @@ public class ModificarFactura extends JDialog {
 					}
 				});
 				{
-					btnLimpiar = new JButton("Limpiar");
+					btnLimpiar = new JButton("LIMPIAR");
 					btnLimpiar.setBackground(new Color(102, 0, 255));
 					btnLimpiar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
+
 							ArrayList<Componente> copiaFactura = new ArrayList<Componente>();
 							for (Componente c : componentesFactura) {
-							    try {
-							        copiaFactura.add((Componente) c.clone());
-							    } catch (CloneNotSupportedException e2) {
-							        e2.printStackTrace();
-							    }
+								try {
+									copiaFactura.add((Componente) c.clone());
+								} catch (CloneNotSupportedException e2) {
+									e2.printStackTrace();
+								}
 							}
 							for (Componente selected : copiaFactura) {
-							    int cantidad = selected.getStock();
-							    Componente componente = buscarComponenteBySerie(selected.getNumSerie());
-							    componente.setStock(componente.getStock() + cantidad);
-							    reescribirComponete(componente);
-							    componentesFactura.remove(selected);
+								int cantidad = selected.getStock();
+								Componente componente = buscarComponenteBySerie(selected.getNumSerie());
+								componente.setStock(componente.getStock() + cantidad);
+								reescribirComponete(componente);
+								componentesFactura.remove(selected);
 							}
 							ArrayList<Combo> copiaFacturaCombo = new ArrayList<Combo>();
 							for (Combo c : combosFactura) {
-							    try {
-							        copiaFacturaCombo.add((Combo) c.clone());
-							    } catch (CloneNotSupportedException e3) {
-							        e3.printStackTrace();
-							    }
+								try {
+									copiaFacturaCombo.add((Combo) c.clone());
+								} catch (CloneNotSupportedException e3) {
+									e3.printStackTrace();
+								}
 							}
 							ArrayList<Combo> copia = new ArrayList<Combo>(Tienda.getInstance().getMisCombos().size());
 							for (Combo comb : Tienda.getInstance().getMisCombos()) {
-									try {
-										copia.add((Combo) comb.clone());
-									} catch (CloneNotSupportedException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+								try {
+									copia.add((Combo) comb.clone());
+								} catch (CloneNotSupportedException e1) {
+									e1.printStackTrace();
 								}
+							}
 							for (Combo selected : copiaFacturaCombo) {
-							    int cantidad = selected.getStock();
-							    Combo Combos = buscarComboByCodigo(selected.getCodigo(),copia);
-							    Combos.setStock(Combos.getStock() + cantidad);
-							    reescribirCombo(Combos);
-							    combosFactura.remove(selected);
+								int cantidad = selected.getStock();
+								Combo Combos = buscarComboByCodigo(selected.getCodigo(),copia);
+								Combos.setStock(Combos.getStock() + cantidad);
+								reescribirCombo(Combos);
+								combosFactura.remove(selected);
 							}
 							componentesFactura.clear();
 							combosFactura.clear();
@@ -506,52 +493,38 @@ public class ModificarFactura extends JDialog {
 						}
 					});
 					{
-						btnFacturar = new JButton("Facturar");
+						btnFacturar = new JButton("FACTURAR");
 						btnFacturar.setBackground(new Color(51, 204, 153));
 						btnFacturar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								
-								
+
+
 								ArrayList<Componente> faccomp;
-								
+
 								faccomp = copiarArraytemp();
-								
-							
+
+
 								ArrayList<Combo> combofac;
-								
+
 								combofac = copiarArraytempCombos();
-								
+
 								if(!control) {
-									 auxCliente = new Cliente(CedulatextField.getText(),txtNombre.getText(),txtDireccion.getText(),txtTelefono.getText());
+									auxCliente = new Cliente(CedulatextField.getText(),txtNombre.getText(),txtDireccion.getText(),txtTelefono.getText());
 									Tienda.getInstance().registrarCliente(auxCliente);
 								}
 								JOptionPane.showMessageDialog(null, "Operacion Exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-								//clear();
-								
+
+
 								String codigo = "Fa-"+Tienda.getInstance().getMisFacturas().size();
-								
-								
-								
-								
-								
+
 								Factura nuevaFactura = new Factura(codigo,faccomp,combofac, auxCliente, txtTotal.getText() );
 								Tienda.getInstance().setMisCombos(combosTemp);
 								Tienda.getInstance().setMisComponentes(temporal);
 								Tienda.getInstance().agregarFactura(nuevaFactura);
-								
-								
-								
-								Tienda.getInstance().guardarClientesEnArchivo();
-								Tienda.getInstance().guardarCombosEnArchivo();
-								Tienda.getInstance().guardarComponentesEnArchivo();
-								Tienda.getInstance().guardarFacturasEnArchivo();
-								
-								  
 
-								
 								clean();
 								load();
-								
+
 							}
 						});
 						buttonPane.add(btnFacturar);
@@ -560,9 +533,9 @@ public class ModificarFactura extends JDialog {
 				}
 				buttonPane.add(btnDelete);;
 			}
-			
+
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -573,21 +546,19 @@ public class ModificarFactura extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-		
+
 		load();
-		
-		// Recuperar detalles de la factura seleccionada
-        Cliente clienteFactura = facturaSeleccionada.getCliente();
-        ArrayList<Componente> componentesFactura = facturaSeleccionada.getMisComponentes();
-        ArrayList<Combo> combosFactura = facturaSeleccionada.getMisCombos();
 
-        // Llenar los campos con los datos de la factura seleccionada
-        CedulatextField.setText(clienteFactura.getCedula());
-        txtNombre.setText(clienteFactura.getNombre());
-        txtDireccion.setText(clienteFactura.getDireccion());
-        txtTelefono.setText(clienteFactura.getTelefono());
+		Cliente clienteFactura = facturaSeleccionada.getCliente();
+		ArrayList<Componente> componentesFactura = facturaSeleccionada.getMisComponentes();
+		ArrayList<Combo> combosFactura = facturaSeleccionada.getMisCombos();
 
-       
+		CedulatextField.setText(clienteFactura.getCedula());
+		txtNombre.setText(clienteFactura.getNombre());
+		txtDireccion.setText(clienteFactura.getDireccion());
+		txtTelefono.setText(clienteFactura.getTelefono());
+
+
 	}
 
 	public static void load() {
@@ -595,46 +566,46 @@ public class ModificarFactura extends JDialog {
 		rows = new Object[model.getColumnCount()];
 		float total = 0;
 		int[] cont;
-			for (Componente aux : componentesFactura) {
-				
-				rows[0] = aux.getNumSerie();
-				rows[2] = aux.getMarca();
-				rows[3] = aux.getModelo();
-				rows[4] = aux.getStock();
-				rows[5] = aux.getPrecio();
-				rows[6] = aux.getPrecio()*aux.getStock();
-				if(aux instanceof DiscoDuro ){
-					rows[1] = "Disco Duro";	
-				}
-				if(aux instanceof MemoriaRam){
-					rows[1] = "Memoria Ram";	
-				}
-				if(aux instanceof Micro ){
-					rows[1] = "Microprocesador";
-				}
-				if(aux instanceof Motherboard ){
-					rows[1] = "MotherBoard";
-				}
-				model.addRow(rows);
-				total += aux.getPrecio()*aux.getStock();
+		for (Componente aux : componentesFactura) {
+
+			rows[0] = aux.getNumSerie();
+			rows[2] = aux.getMarca();
+			rows[3] = aux.getModelo();
+			rows[4] = aux.getStock();
+			rows[5] = aux.getPrecio();
+			rows[6] = aux.getPrecio()*aux.getStock();
+			if(aux instanceof DiscoDuro ){
+				rows[1] = "Disco Duro";	
 			}
-			for (Combo aux : combosFactura) {
-				cont = ListadoCombo.contador(aux);
-				rows[0] = aux.getCodigo();
-				rows[1] = "MDR: "+cont[0]+" - DIS: " + cont[1] + " - MIC: "+cont[2]+ " - MER: "+cont[3];
-				rows[2] = aux.getNombre();
-				rows[3] = 
-				rows[4] = aux.getStock();
-				rows[5] = aux.getPrecio();
-				rows[6] = aux.getPrecio()*aux.getStock();
-				model.addRow(rows);
-				total += aux.getPrecio();
+			if(aux instanceof MemoriaRam){
+				rows[1] = "Memoria Ram";	
 			}
-			String txt = Float.toString(total);
-			txtTotal.setText(txt);
-			
-			
-			
+			if(aux instanceof Micro ){
+				rows[1] = "Microprocesador";
+			}
+			if(aux instanceof Motherboard ){
+				rows[1] = "MotherBoard";
+			}
+			model.addRow(rows);
+			total += aux.getPrecio()*aux.getStock();
+		}
+		for (Combo aux : combosFactura) {
+			cont = ListadoCombo.contador(aux);
+			rows[0] = aux.getCodigo();
+			rows[1] = "MDR: "+cont[0]+" - DIS: " + cont[1] + " - MIC: "+cont[2]+ " - MER: "+cont[3];
+			rows[2] = aux.getNombre();
+			rows[3] = 
+					rows[4] = aux.getStock();
+			rows[5] = aux.getPrecio();
+			rows[6] = aux.getPrecio()*aux.getStock();
+			model.addRow(rows);
+			total += aux.getPrecio();
+		}
+		String txt = Float.toString(total);
+		txtTotal.setText(txt);
+
+
+
 	}	
 	public Componente buscarComponenteBySerie(String serie) {
 		Componente aux = null;
@@ -654,7 +625,7 @@ public class ModificarFactura extends JDialog {
 		}
 		return aux;
 	}
-	
+
 	public Componente buscarComponenteBySerieFactura(String serie) {
 		Componente aux = null;
 		for(Componente componentes : componentesFactura) {
@@ -673,41 +644,39 @@ public class ModificarFactura extends JDialog {
 		}
 		return aux;
 	}
-	
+
 	public static ArrayList<Componente> copiarPrueba() {
-			try {
-				temporal = Tienda.getInstance().copiarArray();
-			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+		try {
+			temporal = Tienda.getInstance().copiarArray();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+
 		return temporal;
 	}
 	public static ArrayList<Combo> copiarCombo()  {
 		ArrayList<Combo> copia = new ArrayList<Combo>(Tienda.getInstance().getMisCombos().size());
 		for (Combo comb : Tienda.getInstance().getMisCombos()) {
-				try {
-					copia.add((Combo) comb.clone());
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			try {
+				copia.add((Combo) comb.clone());
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
 			}
+		}
 		System.out.println("-------------------------------");
 		System.out.println(Tienda.getInstance().getMisCombos().size());
 		return copia;
-}
+	}
 
 	public void reescribirComponete(Componente componente) {
-		
+
 		ArrayList<Componente> copia = new ArrayList<Componente>();
 		for (Componente c : temporal) {
-		    try {
-		        copia.add((Componente) c.clone());
-		    } catch (CloneNotSupportedException e2) {
-		        e2.printStackTrace();
-		    }
+			try {
+				copia.add((Componente) c.clone());
+			} catch (CloneNotSupportedException e2) {
+				e2.printStackTrace();
+			}
 		}
 		for(Componente componentes: copia) {
 			if(componentes == componente) {
@@ -715,18 +684,18 @@ public class ModificarFactura extends JDialog {
 				temporal.add(componente);
 			}
 		}
-		
-		
+
+
 	}
 	public void reescribirCombo(Combo combo) {
-		
+
 		ArrayList<Combo> copia = new ArrayList<Combo>();
 		for (Combo c : combosTemp) {
-		    try {
-		        copia.add((Combo) c.clone());
-		    } catch (CloneNotSupportedException e2) {
-		        e2.printStackTrace();
-		    }
+			try {
+				copia.add((Combo) c.clone());
+			} catch (CloneNotSupportedException e2) {
+				e2.printStackTrace();
+			}
 		}
 		for(Combo combos: copia) {
 			if(combos == combo) {
@@ -734,19 +703,19 @@ public class ModificarFactura extends JDialog {
 				combosTemp.add(combo);
 			}
 		}
-		
-		
+
+
 	}
 	public void reescribirFacturaComp(Componente componente) {
 		ArrayList<Componente> copia = new ArrayList<Componente>();
 		for (Componente c : temporal) {
-		    try {
-		        copia.add((Componente) c.clone());
-		    } catch (CloneNotSupportedException e2) {
-		        e2.printStackTrace();
-		    }
+			try {
+				copia.add((Componente) c.clone());
+			} catch (CloneNotSupportedException e2) {
+				e2.printStackTrace();
+			}
 		}
-		
+
 		for(Componente componentes: copia) {
 			if(componentes == componente) {
 				System.out.println(componente.getStock());
@@ -754,18 +723,18 @@ public class ModificarFactura extends JDialog {
 				componentesFactura.add(componente);
 			}
 		}
-		
-		
+
+
 	}
 	public void reescribirFacturaComb(Combo combo) {
-		
+
 		ArrayList<Combo> copia = new ArrayList<Combo>();
 		for (Combo c : combosFactura) {
-		    try {
-		        copia.add((Combo) c.clone());
-		    } catch (CloneNotSupportedException e2) {
-		        e2.printStackTrace();
-		    }
+			try {
+				copia.add((Combo) c.clone());
+			} catch (CloneNotSupportedException e2) {
+				e2.printStackTrace();
+			}
 		}
 		for(Combo combos: copia) {
 			if(combos == combo) {
@@ -773,52 +742,51 @@ public class ModificarFactura extends JDialog {
 				combosFactura.add(combo);
 			}
 		}
-		
-		
+
+
 	}
-	
-	   public ArrayList<Componente> copiarListaProfunda(ArrayList<Componente> listaOriginal) {
-           ArrayList<Componente> listaCopia = new ArrayList<Componente>();
-           for (Componente c : listaOriginal) {
-                   Componente copiaComponente = null;
-                   try {
-                           copiaComponente = (Componente) c.clone();
-                   } catch (CloneNotSupportedException e) {
-                           // TODO Auto-generated catch block
-                           e.printStackTrace();
-                   }
-                   listaCopia.add(copiaComponente);
-           }
-           return listaCopia;
-   }
-   
+
+	public ArrayList<Componente> copiarListaProfunda(ArrayList<Componente> listaOriginal) {
+		ArrayList<Componente> listaCopia = new ArrayList<Componente>();
+		for (Componente c : listaOriginal) {
+			Componente copiaComponente = null;
+			try {
+				copiaComponente = (Componente) c.clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+			listaCopia.add(copiaComponente);
+		}
+		return listaCopia;
+	}
+
 	public void inicializar() {
 		ArrayList<Componente> copiaFactura = new ArrayList<Componente>();
 		for (Componente c : componentesFactura) {
-		    try {
-		        copiaFactura.add((Componente) c.clone());
-		    } catch (CloneNotSupportedException e2) {
-		        e2.printStackTrace();
-		    }
+			try {
+				copiaFactura.add((Componente) c.clone());
+			} catch (CloneNotSupportedException e2) {
+				e2.printStackTrace();
+			}
 		}
 		for (Componente selected : copiaFactura) {
-		    int cantidad = selected.getStock();
-		    Componente componente = buscarComponenteBySerie(selected.getNumSerie());
-		    componente.setStock(componente.getStock() + cantidad);
-		    reescribirComponete(componente);
-		    componentesFactura.remove(selected);
+			int cantidad = selected.getStock();
+			Componente componente = buscarComponenteBySerie(selected.getNumSerie());
+			componente.setStock(componente.getStock() + cantidad);
+			reescribirComponete(componente);
+			componentesFactura.remove(selected);
 		}
 		ArrayList<Combo> copiaFacturaCombo = new ArrayList<Combo>();
 		for (Combo c : combosFactura) {
-		    try {
-		        copiaFacturaCombo.add((Combo) c.clone());
-		    } catch (CloneNotSupportedException e3) {
-		        e3.printStackTrace();
-		    }
+			try {
+				copiaFacturaCombo.add((Combo) c.clone());
+			} catch (CloneNotSupportedException e3) {
+				e3.printStackTrace();
+			}
 		}
 		componentesFactura.clear();
 		combosFactura.clear();
-		
+
 	}
 	public void clean(){
 		componentesFactura.clear();
@@ -832,29 +800,27 @@ public class ModificarFactura extends JDialog {
 		txtTelefono.setEditable(false);
 		txtDireccion.setEditable(false);
 	}
-	
+
 	public ArrayList<Componente> copiarArraytemp (){
-		
+
 		ArrayList<Componente> copia = new ArrayList<Componente>(componentesFactura.size());
 		for (Componente comp : componentesFactura) {
 			try {
-		    copia.add((Componente) comp.clone());
+				copia.add((Componente) comp.clone());
 			}catch (CloneNotSupportedException e) {
-				// TODO: handle exception
 			}
 		}
-		
-		
+
+
 		return copia;
 	}
 	public ArrayList<Combo> copiarArraytempCombos (){
-		
+
 		ArrayList<Combo> copia = new ArrayList<Combo>(combosFactura.size());
 		for (Combo comb : combosFactura) {
 			try {
-		    copia.add((Combo) comb.clone());
+				copia.add((Combo) comb.clone());
 			}catch (CloneNotSupportedException e) {
-				// TODO: handle exception
 			}
 		}
 		return copia;

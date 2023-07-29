@@ -37,7 +37,6 @@ public class ModificarCliente extends JDialog {
 		}
 	}
 
-
 	public ModificarCliente(Cliente cliente) {
 		selected = cliente;
 
@@ -45,7 +44,7 @@ public class ModificarCliente extends JDialog {
 			dispose(); 
 		}
 
-		setTitle("Modificar Cliente");
+		setTitle("MODIFICAR CLIENTES");
 		setBounds(100, 100, 450, 265);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -105,16 +104,20 @@ public class ModificarCliente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnmodificar = new JButton("Modificar");
+				JButton btnmodificar = new JButton("MODIFICAR");
 				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (selected != null) {
-							selected.setNombre(txtNombre.getText());
-							selected.setDireccion(txtDireccion.getText());
-							selected.setTelefono(txtTelefono.getText());
-							ListadoCliente.loadClientes(0);
-							dispose();
-							JOptionPane.showMessageDialog(ModificarCliente.this, "Cliente modificado exitosamente.", "AfirmaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+							if (!txtNombre.getText().isEmpty() && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+								selected.setNombre(txtNombre.getText());
+								selected.setDireccion(txtDireccion.getText());
+								selected.setTelefono(txtTelefono.getText());
+								ListadoCliente.loadClientes(0);
+								dispose();
+								JOptionPane.showMessageDialog(ModificarCliente.this, "Cliente modificado exitosamente.", "Afirmación", JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(ModificarCliente.this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				});
@@ -123,7 +126,7 @@ public class ModificarCliente extends JDialog {
 				getRootPane().setDefaultButton(btnmodificar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("CANCELAR");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

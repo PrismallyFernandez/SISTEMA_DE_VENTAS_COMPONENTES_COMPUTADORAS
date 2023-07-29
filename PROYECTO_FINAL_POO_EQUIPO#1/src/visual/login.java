@@ -32,47 +32,36 @@ import javax.swing.ImageIcon;
 
 public class login extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUser;
 	private JPasswordField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
-	    EventQueue.invokeLater(new Runnable() {
-	        public void run() {
-	            try {
-	                login dialog = new login();
-	                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	                dialog.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					login dialog = new login();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
 
-	                // Esperar hasta que la ventana de inicio de sesión se cierre
-	                dialog.setModal(true);
+					dialog.setModal(true);
 
-	                // Verificar si el login fue exitoso antes de abrir la ventana principal
-	                if (Tienda.getInstance().isLogged()) {
-	                    Principal principal = new Principal();
-	                    principal.setVisible(true);
-	                }
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    });
+					if (Tienda.getInstance().isLogged()) {
+						Principal principal = new Principal();
+						principal.setVisible(true);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 
-
-	/**
-	 * Create the dialog.
-	 */
 	public login() {
-		setTitle("User Login");
+		setTitle("LOGIN - INICIO");
 		setBounds(100, 100, 918, 554);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -86,31 +75,33 @@ public class login extends JDialog {
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
-			
+
 			JLabel lblNewLabel = new JLabel("New label");
 			lblNewLabel.setIcon(new ImageIcon(login.class.getResource("/images/loginImg.png")));
 			lblNewLabel.setBounds(25, -42, 554, 511);
 			panel.add(lblNewLabel);
-			
+
 			JLabel lblUsuario = new JLabel("Usuario:");
 			lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblUsuario.setBounds(591, 145, 101, 20);
 			panel.add(lblUsuario);
-			
+
 			txtUser = new JTextField();
+			txtUser.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			txtUser.setBounds(591, 166, 244, 33);
 			panel.add(txtUser);
 			txtUser.setColumns(10);
-			
+
 			JLabel lblPassword = new JLabel("Password:");
 			lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblPassword.setBounds(591, 246, 101, 20);
 			panel.add(lblPassword);
-			
+
 			txtPassword = new JPasswordField();
+			txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			txtPassword.setBounds(591, 271, 244, 33);
 			panel.add(txtPassword);
-			
+
 			JPanel panel_1 = new JPanel();
 			panel_1.setBackground(new Color(32, 178, 170));
 			panel_1.setBounds(0, 0, 420, 469);
@@ -129,13 +120,28 @@ public class login extends JDialog {
 							dispose();
 							principal.setVisible(true);
 						} else {
-							JOptionPane.showMessageDialog(null, "El nombre de usuario o su clava es incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "El nombre de usuario o su clave es incorrecto/a", "Error de Login", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
 			}
+			
+			JLabel lblNewLabel_1 = new JLabel("");
+			lblNewLabel_1.setIcon(new ImageIcon(login.class.getResource("/images/user (1).png")));
+			lblNewLabel_1.setBounds(556, 166, 32, 33);
+			panel.add(lblNewLabel_1);
+			
+			JLabel lblNewLabel_2 = new JLabel("");
+			lblNewLabel_2.setIcon(new ImageIcon(login.class.getResource("/images/padlock.png")));
+			lblNewLabel_2.setBounds(556, 262, 32, 42);
+			panel.add(lblNewLabel_2);
+			
+			JLabel lblNewLabel_3 = new JLabel("");
+			lblNewLabel_3.setIcon(new ImageIcon(login.class.getResource("/images/user (3).png")));
+			lblNewLabel_3.setBounds(675, 46, 72, 88);
+			panel.add(lblNewLabel_3);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -143,7 +149,7 @@ public class login extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("CANCELAR");
 				cancelButton.setBackground(new Color(51, 204, 153));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

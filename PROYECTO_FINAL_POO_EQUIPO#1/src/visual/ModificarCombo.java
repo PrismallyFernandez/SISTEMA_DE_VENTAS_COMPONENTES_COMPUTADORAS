@@ -42,9 +42,6 @@ import java.awt.Color;
 
 public class ModificarCombo extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -80,9 +77,7 @@ public class ModificarCombo extends JDialog {
 	private JLabel lblStock;
 	private JSpinner spnStock;
 	private String codigo;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ModificarCombo dialog = new ModificarCombo(null);
@@ -93,13 +88,11 @@ public class ModificarCombo extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ModificarCombo(String sele) {
 		setResizable(false);
 		Combo copy = Tienda.getInstance().CombobyCodigo(sele);
-		
+
 		Combo combo= new Combo (copiarListaProfunda(copy.getMisComponentes()), null, null, 0,0);
 
 		setBounds(100, 100, 845, 736);
@@ -163,7 +156,6 @@ public class ModificarCombo extends JDialog {
 							String codigo = table.getValueAt(ind, 0).toString();
 							selected = temporalByCodigo(codigo);
 						}
-						//spnAgregar.setModel(new SpinnerNumberModel(1, 1, selected.getStock(), 1));
 
 					}
 
@@ -188,7 +180,7 @@ public class ModificarCombo extends JDialog {
 						panel.setComponentZOrder(pnlAgregar, 0);
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Stock VacÃ¯Â¿Â½o!!!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Stock Vacío!!!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
 
 					}
 				}
@@ -206,7 +198,7 @@ public class ModificarCombo extends JDialog {
 			panel.add(pnlAgregar);
 			{
 				textPnlAviso = new JTextPane();
-				textPnlAviso.setText("Cu\u00E1ntos art\u00EDculos deseas a\u00F1adir al combo?\r\n\r\nNo deben exceder la cantidad actual en existencia!");
+				textPnlAviso.setText("¿Cu\u00E1ntos art\u00EDculos deseas a\u00F1adir al combo?\r\n\r\nNo deben exceder la cantidad actual en existencia!");
 				textPnlAviso.setEditable(false);
 				textPnlAviso.setBackground(SystemColor.info);
 				textPnlAviso.setBounds(12, 32, 179, 86);
@@ -450,35 +442,36 @@ public class ModificarCombo extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				//aqui cambiaaaa
 				{
-					btnCrear = new JButton("Crear");
+					btnCrear = new JButton("CREAR");
 					btnCrear.setBackground(new Color(51, 204, 153));
 					btnCrear.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							Stock(combo);
-							guardar(combo, combo);
-							JOptionPane.showMessageDialog(null, "Registro Exitoso", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-							//Reset();
-							load(0);
-							load2(combo);
+							if (textNombreCombo.getText().isEmpty() || textSerial.getText().isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Debe llenar todos los campos antes de crear el combo.",
+										"Campos vacíos", JOptionPane.ERROR_MESSAGE);
+							} else {
+								Stock(combo);
+								guardar(combo, combo);
+								JOptionPane.showMessageDialog(null, "Registro Exitoso", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+								load(0);
+								load2(combo);
+							}
 						}
 					});
-					//hasta aqui
 					buttonPane.add(btnCrear);
 				}
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
 		}
-		//aqui cambia tambien
 		spnTotal.setValue(copy.getPrecio());
 		textNombreCombo.setText(copy.getNombre());
 		textSerial.setText(copy.getCodigo());
@@ -486,7 +479,6 @@ public class ModificarCombo extends JDialog {
 		spnSubtotal.setValue((copy.getPrecio() * 0.1) + copy.getPrecio());
 		load(0);
 		load2(combo);
-		//hawsta aqui
 		pnlAgregar.setVisible(false);
 		pnlRemover.setVisible(false);
 	}
@@ -657,7 +649,6 @@ public class ModificarCombo extends JDialog {
 
 	public void clean () {
 		spnAgregar.setValue(1);
-		//spnRemover.setModel(new SpinnerNumberModel(1, 1, selected_1.getStock(), 1));
 		btnAgregar.setEnabled(false);
 		btnRemover.setEnabled(false);
 	}
@@ -671,16 +662,14 @@ public class ModificarCombo extends JDialog {
 		}
 		return null;
 	}
-//aqui cambia
 	public void remover(Componente aux, int control,int cant, Combo combo) {
-		//hasta naqui
 		float descuento = 0;
 		for (Componente comp : temporal) {
 			if (comp.getNumSerie().equalsIgnoreCase(aux.getNumSerie())) {
-				if (control == 1) {//Cuando no se removeran todos
+				if (control == 1) {
 					aux.setStock(aux.getStock() - cant);
 				}
-				if (control == 2) {//esto es para cuando se remueven todos
+				if (control == 2) {
 					combo.getMisComponentes().remove(aux);
 
 				}
@@ -692,8 +681,7 @@ public class ModificarCombo extends JDialog {
 		spnTotal.setValue(descuento);
 
 	}
-//peque;o cambio
-	public void Stock(Combo combo) {//Esa funcion se llama al precionar el boton crear
+	public void Stock(Combo combo) {
 		int stock = (int) spnStock.getValue();
 		int cant=0;
 		for (Componente comp: Tienda.getInstance().getMisComponentes()) {
@@ -729,7 +717,6 @@ public class ModificarCombo extends JDialog {
 				}
 			}
 		}
-		//ArrayList<Componente> copia = sele.getMisComponentes();
 		combo.setCodigo(codigo);
 		combo.setNombre(textNombreCombo.getText());
 		combo.setPrecio((float) spnTotal.getValue());
@@ -737,17 +724,7 @@ public class ModificarCombo extends JDialog {
 
 
 	}
-	
-	//aqui cambia
 
-	/*public void Reset() {
-		textNombreCombo.setText(" ");
-		spnSubtotal.setValue(0.0);
-		spnTotal = new JSpinner();
-		spnTotal.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-		spnStock.setValue(1);
-		codigo = ("CMB-"+ Tienda.getInstance().getMisCombos().size());
-	}*/
 
 	public ArrayList<Componente> copiarListaProfunda(ArrayList<Componente> listaOriginal) {
 		ArrayList<Componente> listaCopia = new ArrayList<Componente>();
@@ -756,25 +733,24 @@ public class ModificarCombo extends JDialog {
 			try {
 				copiaComponente = (Componente) c.clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			listaCopia.add(copiaComponente); 
 		}
 		return listaCopia;
 	}
-	
+
 	public void cargar(Combo comb) {
-		
+
 	}
-	//hawsta aqui
+
 	public void agregar(Componente aux,Combo combo, int control,int cant) {
 		for (Componente comp : combo.getMisComponentes()) {
 			if (comp.getNumSerie().equalsIgnoreCase(aux.getNumSerie())) {
-				if (control == 1) {//Cuando NO se removeran todos
+				if (control == 1) {
 					aux.setStock(aux.getStock() - cant);
 				}
-				if (control == 2) {//esto es para cuando se remueven todos
+				if (control == 2) {
 					temporal.remove(aux);
 				}
 			}

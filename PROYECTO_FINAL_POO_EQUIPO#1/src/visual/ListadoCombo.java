@@ -35,9 +35,6 @@ import java.awt.Color;
 
 public class ListadoCombo extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -47,9 +44,7 @@ public class ListadoCombo extends JDialog {
 	private JButton btnCancelar;
 	private Combo selected = null;
 	private JButton btnUpdate;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ListadoCombo dialog = new ListadoCombo();
@@ -60,10 +55,9 @@ public class ListadoCombo extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ListadoCombo() {
+		setTitle("LISTADO DE COMBOS");
 		setResizable(false);
 		System.out.println(Tienda.getInstance().getMisCombos().size());
 		setBounds(100, 100, 972, 345);
@@ -73,7 +67,7 @@ public class ListadoCombo extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(255, 255, 255));
@@ -98,7 +92,7 @@ public class ListadoCombo extends JDialog {
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
 					String[] headers = {"Componentes","Nombre","C�digo","Precio", "Stock",};
-					
+
 					table = new JTable();
 					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					scrollPane.setViewportView(table);
@@ -127,7 +121,7 @@ public class ListadoCombo extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setForeground(new Color(0, 0, 0));
 				btnDelete.setBackground(new Color(204, 0, 0));
 				btnDelete.setEnabled(false);
@@ -146,9 +140,9 @@ public class ListadoCombo extends JDialog {
 				});
 				buttonPane.add(btnDelete);
 			}
-			
+
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setForeground(new Color(0, 0, 0));
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
@@ -157,7 +151,7 @@ public class ListadoCombo extends JDialog {
 					}
 				});
 				{
-					btnUpdate = new JButton("Modificar");
+					btnUpdate = new JButton("MODIFICAR");
 					btnUpdate.setForeground(new Color(0, 0, 0));
 					btnUpdate.setBackground(new Color(102, 0, 255));
 					btnUpdate.setEnabled(false);
@@ -173,7 +167,7 @@ public class ListadoCombo extends JDialog {
 				}
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
-			
+
 			}
 		}
 		load(0);
@@ -196,7 +190,7 @@ public class ListadoCombo extends JDialog {
 			}
 		}
 	}
-	
+
 	public static int[] contador(Combo aux) {
 		int[] cont= {0,0,0,0};
 		for (Componente comp : aux.getMisComponentes()) {
@@ -215,7 +209,7 @@ public class ListadoCombo extends JDialog {
 		}
 		return cont;
 	}
-	
+
 	public void EliminarCombo(Combo comb) {
 		ArrayList<Combo> temporal = Tienda.getInstance().getMisCombos();
 		for(Combo aux : temporal) {
@@ -224,5 +218,5 @@ public class ListadoCombo extends JDialog {
 			}
 		}
 	}
-	
+
 }

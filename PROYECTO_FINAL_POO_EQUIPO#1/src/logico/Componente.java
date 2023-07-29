@@ -3,6 +3,7 @@ package logico;
 import java.io.Serializable;
 
 public abstract class Componente implements Cloneable,Serializable{
+
 	private static final long serialVersionUID = -3947030900384762237L;
 	protected  String numSerie;
 	protected int stock;
@@ -10,8 +11,8 @@ public abstract class Componente implements Cloneable,Serializable{
 	protected String modelo;
 	protected String marca;
 	protected String descripcion;
-	
-	
+
+
 	public Componente(String numSerie, int stock, String descripcion, float precio, String modelo, String marca) {
 		super();
 		this.numSerie = numSerie;
@@ -68,14 +69,14 @@ public abstract class Componente implements Cloneable,Serializable{
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	  public Object clone() throws CloneNotSupportedException {
-	        Componente cloned = (Componente) super.clone();
-	        return cloned;
+	
+	public Object clone() throws CloneNotSupportedException {
+		Componente cloned = (Componente) super.clone();
+		return cloned;
 	}
-	// Dentro de la clase Componente
 
-	  public double calcularSubtotal() {
-	      return stock * precio;
-	  }
+	public double calcularSubtotal() {
+		return stock * precio;
+	}
 
 }

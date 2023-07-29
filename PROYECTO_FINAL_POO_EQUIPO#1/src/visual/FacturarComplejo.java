@@ -86,9 +86,8 @@ public class FacturarComplejo extends JDialog {
 	}
 
 	public FacturarComplejo() {
-		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
+		setTitle("FACTURAR");
 		System.out.println(Tienda.getInstance().getMisCombos().size());
-		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
 
 		inicializar();
 		setBounds(100, 100, 1046, 503);
@@ -278,7 +277,7 @@ public class FacturarComplejo extends JDialog {
 								controlador = true;
 							} 
 							if(controlador == false) {
-								JOptionPane.showMessageDialog(null, "El Componente no existe o no estÃ¡ disponible", "Error", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "El Componente o Combo no existe o no está disponible", "Error", JOptionPane.INFORMATION_MESSAGE);
 							}
 
 							load();
@@ -328,7 +327,7 @@ public class FacturarComplejo extends JDialog {
 			Agregarspinner.setBounds(279, 392, 46, 20);
 			panel.add(Agregarspinner);
 			{
-				btnSetear = new JButton("set->");
+				btnSetear = new JButton("ADD");
 				btnSetear.setEnabled(false);
 				btnSetear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -377,13 +376,13 @@ public class FacturarComplejo extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 			{
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setEnabled(false);
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (selected != null) {
 							int option = JOptionPane.showConfirmDialog(null,
-									"Estas seguro de querer eliminar el Companente de la factura?",
+									"¿Estás seguro de querer eliminar el Componente o Combo de la Factura?",
 									"Eliminar Componente", JOptionPane.OK_CANCEL_OPTION);
 							if(option == JOptionPane.OK_OPTION) {
 
@@ -419,7 +418,7 @@ public class FacturarComplejo extends JDialog {
 				});
 
 				{
-					btnLimpiar = new JButton("Limpiar");
+					btnLimpiar = new JButton("LIMPIAR");
 					btnLimpiar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 
@@ -469,7 +468,7 @@ public class FacturarComplejo extends JDialog {
 
 
 					{
-						btnFacturar = new JButton("Facturar");
+						btnFacturar = new JButton("FACTURAR");
 						btnFacturar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if (camposClienteVacios()) {
@@ -492,11 +491,6 @@ public class FacturarComplejo extends JDialog {
 									Tienda.getInstance().setMisComponentes(temporal);
 									Tienda.getInstance().agregarFactura(nuevaFactura);
 
-									Tienda.getInstance().guardarClientesEnArchivo();
-									Tienda.getInstance().guardarCombosEnArchivo();
-									Tienda.getInstance().guardarComponentesEnArchivo();
-									Tienda.getInstance().guardarFacturasEnArchivo();
-
 									clean();
 									load();
 								}
@@ -513,7 +507,6 @@ public class FacturarComplejo extends JDialog {
 
 						});
 
-
 						buttonPane.add(btnFacturar);
 					}
 					buttonPane.add(btnLimpiar);
@@ -522,7 +515,7 @@ public class FacturarComplejo extends JDialog {
 			}
 
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

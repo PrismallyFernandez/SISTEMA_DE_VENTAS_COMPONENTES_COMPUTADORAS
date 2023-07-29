@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Combo implements Cloneable, Serializable {
+
 	private static final long serialVersionUID = -3159306032366986253L;
 	private ArrayList<Componente> misComponentes;
 	private String nombre;
@@ -27,10 +28,10 @@ public class Combo implements Cloneable, Serializable {
 	public void setMisComponentes(ArrayList<Componente> misComponentes) {
 		this.misComponentes = misComponentes;
 	}
-	 public Object clone() throws CloneNotSupportedException {
-	        Combo cloned = (Combo) super.clone();
-	        return cloned;
-	    }
+	public Object clone() throws CloneNotSupportedException {
+		Combo cloned = (Combo) super.clone();
+		return cloned;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -63,8 +64,8 @@ public class Combo implements Cloneable, Serializable {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	  public double calcularSubtotal() {
-	      return stock * precio;
-	  }
-	
+	public double calcularSubtotal() {
+		return stock * precio;
+	}
+
 }

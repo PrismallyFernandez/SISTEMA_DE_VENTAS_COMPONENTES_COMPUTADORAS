@@ -22,9 +22,6 @@ import java.awt.Color;
 
 public class ModificarUsuario extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textCodigo;
@@ -35,10 +32,6 @@ public class ModificarUsuario extends JDialog {
 	private JComboBox comboBox;
 	private User selected;
 
-	/**
-	 * Launch the application.
-	 * 
-	 */
 	public static void main(String[] args) {
 		try {
 			ModificarUsuario dialog = new ModificarUsuario(null);
@@ -49,12 +42,11 @@ public class ModificarUsuario extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ModificarUsuario(User user) {
+		setTitle("MODIFICAR USUARIOS");
 		setResizable(false);
-		this.selected = user; // Almacenar el usuario seleccionado en el constructor
+		this.selected = user; 
 		setBounds(100, 100, 309, 442);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -125,11 +117,10 @@ public class ModificarUsuario extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setBackground(new Color(51, 204, 153));
-				okButton.addActionListener(new ActionListener() {
+				JButton btnmodificar = new JButton("MODIFICAR");
+				btnmodificar.setBackground(new Color(51, 204, 153));
+				btnmodificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Verificar que los campos no estén vacíos
 						if (txtNombre.getText().isEmpty() || textUsername.getText().isEmpty()
 								|| textPassword.getText().isEmpty() || textField_2.getText().isEmpty()
 								|| comboBox.getSelectedItem().equals("<Seleccione>")) {
@@ -138,31 +129,28 @@ public class ModificarUsuario extends JDialog {
 							return;
 						}
 
-						// Verificar que las contraseñas coincidan
 						if (!textPassword.getText().equals(textField_2.getText())) {
 							JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error",
 									JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 
-						// Actualizar los datos del usuario seleccionado con los nuevos datos
 						selected.setName(txtNombre.getText());
 						selected.setUserName(textUsername.getText());
 						selected.setPass(textPassword.getText());
 						selected.setTipo(comboBox.getSelectedItem().toString());
 
-						// Mostrar mensaje de éxito y cerrar el diálogo
 						JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente", "Éxito",
 								JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnmodificar.setActionCommand("OK");
+				buttonPane.add(btnmodificar);
+				getRootPane().setDefaultButton(btnmodificar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("CANCELAR");
 				cancelButton.setBackground(new Color(102, 0, 255));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -174,7 +162,6 @@ public class ModificarUsuario extends JDialog {
 			}
 		}
 
-		// Cargar los datos del usuario seleccionado en los campos del formulario
 		loadUserData();
 	}
 
@@ -186,7 +173,6 @@ public class ModificarUsuario extends JDialog {
 			textUsername.setText(selected.getUserName());
 			textPassword.setText(selected.getPass());
 
-			// Establecer el tipo de usuario seleccionado en el comboBox
 			String tipoUsuario = selected.getTipo();
 			if (tipoUsuario.equals("Administrador")) {
 				comboBox.setSelectedItem("Administrador");

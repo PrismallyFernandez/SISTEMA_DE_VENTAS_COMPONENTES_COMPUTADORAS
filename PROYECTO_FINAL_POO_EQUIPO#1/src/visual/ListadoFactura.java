@@ -60,6 +60,7 @@ public class ListadoFactura extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoFactura() {
+		setTitle("LISTADO DE FACTURAS");
 		setResizable(false);
 		setBounds(100, 100, 800, 479);
 		setLocationRelativeTo(null);
@@ -79,7 +80,7 @@ public class ListadoFactura extends JDialog {
 				scrollPane.setBounds(2, 80, 768, 283);
 				panel.add(scrollPane);
 				{
-					String[] headers = {"codigo de factura", "Cedula","Cliente","Cantidad de componentes","Cantidad de combos","Total","Fecha"};
+					String[] headers = {"C骴igo de Factura", "C閐ula","Cliente","Cantidad de componentes","Cantidad de combos","Total","Fecha"};
 
 					table = new JTable();
 					table.addMouseListener(new MouseAdapter() {
@@ -90,7 +91,7 @@ public class ListadoFactura extends JDialog {
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
 								String codigoFactura = table.getValueAt(ind, 0).toString();
-					            selected = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
+								selected = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
 							}
 						}
 					});
@@ -107,34 +108,34 @@ public class ListadoFactura extends JDialog {
 				lblCodigoFacturaLabel.setBounds(12, 13, 44, 16);
 				panel.add(lblCodigoFacturaLabel);
 			}
-			
+
 			textFieldFacturaPorCodigo = new JTextField();
 			textFieldFacturaPorCodigo.setColumns(10);
 			textFieldFacturaPorCodigo.setBounds(12, 34, 116, 23);
 			panel.add(textFieldFacturaPorCodigo);
 			{
-				JLabel lblClienteFacturaLabel = new JLabel("Cliente:");
-				lblClienteFacturaLabel.setBounds(312, 13, 56, 16);
+				JLabel lblClienteFacturaLabel = new JLabel("C\u00E9dula Cliente:");
+				lblClienteFacturaLabel.setBounds(312, 13, 97, 16);
 				panel.add(lblClienteFacturaLabel);
 			}
-			
+
 			JButton btnBuscarFacturaPorCodigo = new JButton("Buscar");
 			btnBuscarFacturaPorCodigo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					 String codigoFactura = textFieldFacturaPorCodigo.getText();
-				      String cedulaCliente = textFieldFacturaPorCliente.getText();
-				      loadFacturas(codigoFactura, cedulaCliente);
+					String codigoFactura = textFieldFacturaPorCodigo.getText();
+					String cedulaCliente = textFieldFacturaPorCliente.getText();
+					loadFacturas(codigoFactura, cedulaCliente);
 				}
 			});
 			btnBuscarFacturaPorCodigo.setBounds(140, 33, 97, 25);
 			panel.add(btnBuscarFacturaPorCodigo);
-			
+
 			JButton btnBuscarFacturaPorCliente = new JButton("Buscar");
 			btnBuscarFacturaPorCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String codigoFactura = textFieldFacturaPorCodigo.getText();
-			        String cedulaCliente = textFieldFacturaPorCliente.getText();
-			        loadFacturas(codigoFactura, cedulaCliente);
+					String cedulaCliente = textFieldFacturaPorCliente.getText();
+					loadFacturas(codigoFactura, cedulaCliente);
 				}
 			});
 			btnBuscarFacturaPorCliente.setBounds(440, 33, 97, 25);
@@ -150,10 +151,10 @@ public class ListadoFactura extends JDialog {
 				btnLimpiarFiltro.setBackground(new Color(51, 204, 153));
 				btnLimpiarFiltro.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						textFieldFacturaPorCodigo.setText(""); // Limpia el campo del c贸digo de factura
-				        textFieldFacturaPorCliente.setText(""); // Limpia el campo del cliente
-				        loadFacturas("", "");
-						
+						textFieldFacturaPorCodigo.setText(""); 
+						textFieldFacturaPorCliente.setText(""); 
+						loadFacturas("", "");
+
 					}
 				});
 				btnLimpiarFiltro.setBounds(629, 13, 131, 49);
@@ -169,7 +170,7 @@ public class ListadoFactura extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnDelete = new JButton("Eliminar");
+				btnDelete = new JButton("ELIMINAR");
 				btnDelete.setForeground(new Color(0, 0, 0));
 				btnDelete.setBackground(new Color(204, 0, 0));
 				btnDelete.setEnabled(false);
@@ -177,21 +178,20 @@ public class ListadoFactura extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if (selected != null) {
 							if (selected != null) {
-				                int option = JOptionPane.showConfirmDialog(null,
-				                        "驴Est谩s seguro de querer eliminar esta factura?",
-				                        "Eliminar factura", JOptionPane.OK_CANCEL_OPTION);
-				                if (option == JOptionPane.OK_OPTION) {
-				                    Tienda.getInstance().eliminarFactura(selected);
-				                    //ve si funciona
-				                    loadClientes();
-				                }
-				            }
+								int option = JOptionPane.showConfirmDialog(null,
+										"驴Est谩s seguro de querer eliminar esta factura?",
+										"Eliminar factura", JOptionPane.OK_CANCEL_OPTION);
+								if (option == JOptionPane.OK_OPTION) {
+									Tienda.getInstance().eliminarFactura(selected);
+									loadClientes();
+								}
+							}
 						}
 					}
 				});
 				buttonPane.add(btnDelete);
 			}
-			
+
 			{
 				btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
@@ -200,29 +200,29 @@ public class ListadoFactura extends JDialog {
 					}
 				});
 				{
-				    btnUpdate = new JButton("Modificar");
-				    btnUpdate.setForeground(new Color(0, 0, 0));
-				    btnUpdate.setBackground(new Color(102, 0, 255));
-				    btnUpdate.addActionListener(new ActionListener() {
-				        public void actionPerformed(ActionEvent e) {
-				            if (selected != null) {
-				                System.out.println("Factura seleccionada: " + selected); // Mensaje de depuraci贸n
-				                ModificarFactura modificarFactura = new ModificarFactura(selected);
-				                modificarFactura.setModal(true);
-				                modificarFactura.setVisible(true);
-				                loadClientes();
-				            } else {
-				                System.out.println("selected es nulo"); // Mensaje de depuraci贸n
-				            }
-				        }
-				    });
+					btnUpdate = new JButton("MODIFICAR");
+					btnUpdate.setForeground(new Color(0, 0, 0));
+					btnUpdate.setBackground(new Color(102, 0, 255));
+					btnUpdate.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (selected != null) {
+								System.out.println("Factura seleccionada: " + selected); 
+								ModificarFactura modificarFactura = new ModificarFactura(selected);
+								modificarFactura.setModal(true);
+								modificarFactura.setVisible(true);
+								loadClientes();
+							} else {
+								System.out.println("selected es nulo"); 
+							}
+						}
+					});
 
-				    btnUpdate.setEnabled(false);
-				    buttonPane.add(btnUpdate);
+					btnUpdate.setEnabled(false);
+					buttonPane.add(btnUpdate);
 				}
-				
-				
-				JButton btnCancelar = new JButton("Cancelar");
+
+
+				JButton btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setForeground(new Color(0, 0, 0));
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
@@ -231,29 +231,29 @@ public class ListadoFactura extends JDialog {
 					}
 				});
 				{
-					
-						JButton buttonInfo = new JButton("Info");
-						buttonInfo.setForeground(new Color(0, 0, 0));
-						buttonInfo.setBackground(new Color(51, 204, 153));
-						buttonInfo.addActionListener(new ActionListener() {
-						    public void actionPerformed(ActionEvent e) {
-						        int selectedRow = table.getSelectedRow();
-						        if (selectedRow >= 0) {
-						            String codigoFactura = table.getValueAt(selectedRow, 0).toString();
-						            Factura selectedFactura = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
-						            if (selectedFactura != null) {
-						            	DetallesFacturaDialog detallesDialog = new DetallesFacturaDialog(selectedFactura);
-						                detallesDialog.setVisible(true);
-						            } else {
-						                JOptionPane.showMessageDialog(ListadoFactura.this, "Factura no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
-						            }
-						        } else {
-						            JOptionPane.showMessageDialog(ListadoFactura.this, "Selecciona una factura.", "Error", JOptionPane.ERROR_MESSAGE);
-						        }
-						    }
-						});
 
-					
+					JButton buttonInfo = new JButton("INFO (VER FACTURA)");
+					buttonInfo.setForeground(new Color(0, 0, 0));
+					buttonInfo.setBackground(new Color(51, 204, 153));
+					buttonInfo.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int selectedRow = table.getSelectedRow();
+							if (selectedRow >= 0) {
+								String codigoFactura = table.getValueAt(selectedRow, 0).toString();
+								Factura selectedFactura = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
+								if (selectedFactura != null) {
+									DetallesFacturaDialog detallesDialog = new DetallesFacturaDialog(selectedFactura);
+									detallesDialog.setVisible(true);
+								} else {
+									JOptionPane.showMessageDialog(ListadoFactura.this, "Factura no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							} else {
+								JOptionPane.showMessageDialog(ListadoFactura.this, "Selecciona una factura.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					});
+
+
 					buttonInfo.setActionCommand("Cancel");
 					buttonPane.add(buttonInfo);
 				}
@@ -267,8 +267,8 @@ public class ListadoFactura extends JDialog {
 	public static void loadClientes() {
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];
-			for (Factura aux : Tienda.getInstance().getMisFacturas()) {
-				if(aux != null){
+		for (Factura aux : Tienda.getInstance().getMisFacturas()) {
+			if(aux != null){
 				rows[0] = aux.getCodigo();
 				rows[1] = aux.getCliente().getCedula();
 				rows[2] = aux.getCliente().getNombre();
@@ -277,32 +277,30 @@ public class ListadoFactura extends JDialog {
 				rows[5] = aux.getMonto();
 				rows[6] = aux.getFecha();
 				model.addRow(rows);
-			  }
 			}
+		}
 	}
 	public static void loadFacturas(String codigoFactura, String cedulaCliente) {
-	    model.setRowCount(0);
-	    rows = new Object[model.getColumnCount()];
+		model.setRowCount(0);
+		rows = new Object[model.getColumnCount()];
 
-	    for (Factura aux : Tienda.getInstance().getMisFacturas()) {
-	        if (aux != null) {
-	            // Verificar si la factura coincide con el filtro de c贸digo de factura
-	            if (codigoFactura.isEmpty() || aux.getCodigo().equals(codigoFactura)) {
-	                Cliente cliente = aux.getCliente();
-	                // Verificar si el cliente coincide con el filtro de cliente
-	                if (cedulaCliente.isEmpty() || cliente.getCedula().equals(cedulaCliente)) {
-	                    rows[0] = aux.getCodigo();
-	                    rows[1] = cliente.getCedula();
-	                    rows[2] = cliente.getNombre();
-	                    rows[3] = aux.getMisComponentes().size();
-	                    rows[4] = aux.getMisCombos().size();
-	                    rows[5] = aux.getMonto();
-	                    rows[6] = aux.getFecha();
-	                    model.addRow(rows);
-	                }
-	            }
-	        }
-	    }
+		for (Factura aux : Tienda.getInstance().getMisFacturas()) {
+			if (aux != null) {
+				if (codigoFactura.isEmpty() || aux.getCodigo().equals(codigoFactura)) {
+					Cliente cliente = aux.getCliente();
+					if (cedulaCliente.isEmpty() || cliente.getCedula().equals(cedulaCliente)) {
+						rows[0] = aux.getCodigo();
+						rows[1] = cliente.getCedula();
+						rows[2] = cliente.getNombre();
+						rows[3] = aux.getMisComponentes().size();
+						rows[4] = aux.getMisCombos().size();
+						rows[5] = aux.getMonto();
+						rows[6] = aux.getFecha();
+						model.addRow(rows);
+					}
+				}
+			}
+		}
 	}
 
 }
