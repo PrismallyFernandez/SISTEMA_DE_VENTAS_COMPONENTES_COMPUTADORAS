@@ -36,7 +36,7 @@ public class ListadoFactura extends JDialog {
 	private static DefaultTableModel model;
 	private static Object rows[];
 	private final JLabel lblListadoDeClientes = new JLabel("Listado de Facturas:");
-	private JButton btnUpdate;
+	private JButton btnmodificar;
 	private JButton btnDelete;
 	private JButton btnCancelar;
 	private Factura selected = null;
@@ -89,7 +89,7 @@ public class ListadoFactura extends JDialog {
 							int ind = table.getSelectedRow();
 							if (ind >= 0 ) {
 								btnDelete.setEnabled(true);
-								btnUpdate.setEnabled(true);
+								btnmodificar.setEnabled(true);
 								String codigoFactura = table.getValueAt(ind, 0).toString();
 								selected = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
 							}
@@ -200,25 +200,30 @@ public class ListadoFactura extends JDialog {
 					}
 				});
 				{
-					btnUpdate = new JButton("MODIFICAR");
-					btnUpdate.setForeground(new Color(0, 0, 0));
-					btnUpdate.setBackground(new Color(102, 0, 255));
-					btnUpdate.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if (selected != null) {
-								System.out.println("Factura seleccionada: " + selected); 
-								ModificarFactura modificarFactura = new ModificarFactura(selected);
-								modificarFactura.setModal(true);
-								modificarFactura.setVisible(true);
-								loadClientes();
-							} else {
-								System.out.println("selected es nulo"); 
-							}
-						}
-					});
+					 btnmodificar = new JButton("Modificar");
+					 btnmodificar.setForeground(new Color(0, 0, 0));
+					 btnmodificar.setBackground(new Color(102, 0, 255));
+					 btnmodificar.addActionListener(new ActionListener() {
+						 public void actionPerformed(ActionEvent e) {
+						        int filaSeleccionada = table.getSelectedRow();
+						        if (filaSeleccionada >= 0) {
+						            String codigoFactura = table.getValueAt(filaSeleccionada, 0).toString();
+						            Factura facturaSeleccionada = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
+						            if (facturaSeleccionada != null) {
+						                ModificarFactura modificarFacturaDialog = new ModificarFactura(facturaSeleccionada);
+						                modificarFacturaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						                modificarFacturaDialog.setVisible(true);
+						            } else {
+						                JOptionPane.showMessageDialog(null, "No se encontró la factura seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+						            }
+						        } else {
+						            JOptionPane.showMessageDialog(null, "Seleccione una factura para modificar.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						        }
+						    }
+						});
 
-					btnUpdate.setEnabled(false);
-					buttonPane.add(btnUpdate);
+					btnmodificar.setEnabled(false);
+					buttonPane.add(btnmodificar);
 				}
 
 
@@ -248,7 +253,7 @@ public class ListadoFactura extends JDialog {
 									JOptionPane.showMessageDialog(ListadoFactura.this, "Factura no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							} else {
-								JOptionPane.showMessageDialog(ListadoFactura.this, "Selecciona una factura.", "Error", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(ListadoFactura.this, "Seleccione una factura.", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 					});

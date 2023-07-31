@@ -139,13 +139,13 @@ public class FacturarComplejo extends JDialog {
 				panel.add(panel_1);
 				{
 					JLabel lblCdula = new JLabel("CÃ©dula:");
-					lblCdula.setBounds(10, 11, 89, 14);
+					lblCdula.setBounds(0, 11, 89, 14);
 					panel_1.add(lblCdula);
 				}
 				{
 					CedulatextField = new JTextField();
 					CedulatextField.setColumns(10);
-					CedulatextField.setBounds(76, 7, 216, 23);
+					CedulatextField.setBounds(84, 7, 216, 23);
 					panel_1.add(CedulatextField);
 				}
 				{
@@ -157,18 +157,19 @@ public class FacturarComplejo extends JDialog {
 							if(auxCliente != null){
 								txtNombre.setText(auxCliente.getNombre()); 
 								txtDireccion.setText(auxCliente.getDireccion());
-								txtTelefono.setText(auxCliente.getCedula());
+								txtTelefono.setText(auxCliente.getTelefono());
 								control = true;
 
 							}else {
 								txtNombre.setEditable(true);
-								txtTelefono.setEditable(true);
 								txtDireccion.setEditable(true);
+								txtTelefono.setEditable(true);
+
 								control = false;
 							}
 						}
 					});
-					btnBuscar.setBounds(355, 7, 89, 23);
+					btnBuscar.setBounds(366, 7, 89, 23);
 					panel_1.add(btnBuscar);
 				}
 				{
@@ -180,7 +181,7 @@ public class FacturarComplejo extends JDialog {
 					txtNombre = new JTextField();
 					txtNombre.setEditable(false);
 					txtNombre.setColumns(10);
-					txtNombre.setBounds(76, 37, 162, 23);
+					txtNombre.setBounds(84, 41, 162, 23);
 					panel_1.add(txtNombre);
 				}
 				{
@@ -192,7 +193,7 @@ public class FacturarComplejo extends JDialog {
 					txtTelefono = new JTextField();
 					txtTelefono.setEditable(false);
 					txtTelefono.setColumns(10);
-					txtTelefono.setBounds(329, 41, 115, 23);
+					txtTelefono.setBounds(340, 41, 115, 23);
 					panel_1.add(txtTelefono);
 				}
 				{
@@ -204,7 +205,7 @@ public class FacturarComplejo extends JDialog {
 					txtDireccion = new JTextField();
 					txtDireccion.setEditable(false);
 					txtDireccion.setColumns(10);
-					txtDireccion.setBounds(86, 71, 357, 23);
+					txtDireccion.setBounds(88, 77, 367, 23);
 					panel_1.add(txtDireccion);
 				}
 				{

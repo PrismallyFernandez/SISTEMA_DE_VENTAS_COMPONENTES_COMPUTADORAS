@@ -114,6 +114,7 @@ public class Tienda implements Serializable {
 		misClientes.remove(selected);
 	}
 
+
 	public User UserById(String userId) {
 
 		for (User usuario : misUser) {
@@ -140,6 +141,9 @@ public class Tienda implements Serializable {
 		}
 		return prueba;
 	}
+	
+	
+	
 
 	public void eliminarComponente(Componente selected) {
 		misComponentes.remove(selected);

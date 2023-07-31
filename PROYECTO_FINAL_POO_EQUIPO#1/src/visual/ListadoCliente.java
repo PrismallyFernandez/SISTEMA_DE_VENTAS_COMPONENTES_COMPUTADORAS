@@ -148,21 +148,18 @@ public class ListadoCliente extends JDialog {
 	}
 
 	public static void loadClientes(int index) {
-		model.setRowCount(0);
-		rows = new Object[model.getColumnCount()];
-		if(index == 0){
-			for (Cliente aux : Tienda.getInstance().getMisClientes()) {
-				if(aux != null){	
-					rows[0] = aux.getCedula();
-					rows[1] = aux.getNombre();
-					rows[2] = aux.getTelefono();
-					rows[3] = aux.getDireccion();
-					model.addRow(rows);
-				}
-			}
-		}
-
-
+	    model.setRowCount(0);
+	    rows = new Object[model.getColumnCount()];
+	    if (index == 0) {
+	        for (Cliente aux : Tienda.getInstance().getMisClientes()) {
+	            if (aux != null) {
+	                rows[0] = aux.getCedula();
+	                rows[1] = aux.getNombre();
+	                rows[2] = aux.getDireccion(); 
+	                rows[3] = aux.getTelefono();  
+	                model.addRow(rows);
+	            }
+	        }
+	    }
 	}
-
-}
+	}

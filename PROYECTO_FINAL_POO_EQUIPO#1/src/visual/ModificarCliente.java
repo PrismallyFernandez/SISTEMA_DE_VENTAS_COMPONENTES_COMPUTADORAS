@@ -76,7 +76,7 @@ public class ModificarCliente extends JDialog {
 			{
 				txtDireccion = new JTextField();
 				txtDireccion.setColumns(10);
-				txtDireccion.setBounds(81, 138, 330, 30);
+				txtDireccion.setBounds(81, 97, 330, 30);
 				panel.add(txtDireccion);
 			}
 
@@ -95,7 +95,7 @@ public class ModificarCliente extends JDialog {
 
 			txtTelefono = new JTextField();
 			txtTelefono.setColumns(10);
-			txtTelefono.setBounds(81, 98, 330, 30);
+			txtTelefono.setBounds(81, 138, 330, 30);
 			panel.add(txtTelefono);
 		}
 		{

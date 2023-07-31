@@ -13,12 +13,12 @@ public class Cliente implements Serializable{
 	private ArrayList<Factura> misFacturas;
 
 
-	public Cliente(String cedula, String nombre, String telefono, String direccion) {
+	public Cliente(String cedula, String nombre, String direccion, String telefono) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
-		this.telefono = telefono;
 		this.direccion = direccion;
+		this.telefono = telefono;
 		misFacturas = new ArrayList();
 
 	}

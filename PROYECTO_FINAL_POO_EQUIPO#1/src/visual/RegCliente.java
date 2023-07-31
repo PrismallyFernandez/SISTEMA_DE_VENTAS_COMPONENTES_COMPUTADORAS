@@ -38,7 +38,7 @@ public class RegCliente extends JDialog {
 
 
 	public RegCliente(Cliente cliente) {
-		setTitle("REGISTRAR CLIENTES");
+		setTitle("REGISTRO CLIENTES");
 		selected = cliente;
 
 		if (selected == null) {
