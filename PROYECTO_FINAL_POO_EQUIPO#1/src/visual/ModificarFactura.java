@@ -96,12 +96,8 @@ public class ModificarFactura extends JDialog {
 		this.facturaSeleccionada = facturaSeleccionada;
 		Combo copy = new Combo(copiarListaProfunda(facturaSeleccionada.getMisComponentes()), null, null, 0, 0);
 		Combo combo= new Combo (copiarListaProfunda(copy.getMisComponentes()), null, null, 0,0);
-
-
-
-		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
 		System.out.println(Tienda.getInstance().getMisCombos().size());
-		System.out.println("mmmmmmmmmmmmmmmmmmmggggggggggg");
+	
 
 		inicializar();
 		setBounds(100, 100, 1046, 515);
@@ -256,7 +252,6 @@ public class ModificarFactura extends JDialog {
 								try {
 									copia.add((Combo) comb.clone());
 								} catch (CloneNotSupportedException e1) {
-									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
 							}
@@ -538,9 +533,12 @@ public class ModificarFactura extends JDialog {
 				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setBackground(new Color(102, 0, 255));
 				btnCancelar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
+				    public void actionPerformed(ActionEvent e) {
+				        ListadoFactura listadoFactura = new ListadoFactura();
+				        listadoFactura.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				        listadoFactura.setVisible(true);
+				        dispose();
+				    }
 				});
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
@@ -663,7 +661,6 @@ public class ModificarFactura extends JDialog {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("-------------------------------");
 		System.out.println(Tienda.getInstance().getMisCombos().size());
 		return copia;
 	}

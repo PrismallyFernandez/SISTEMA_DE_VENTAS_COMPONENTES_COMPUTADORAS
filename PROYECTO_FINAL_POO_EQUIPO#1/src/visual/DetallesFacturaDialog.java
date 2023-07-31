@@ -45,7 +45,7 @@ public class DetallesFacturaDialog extends JDialog {
 		lblLogo.setIcon(new ImageIcon(DetallesFacturaDialog.class.getResource("/images/8058280.jpg")));
 
 
-		JLabel lblCodigo = new JLabel("C\u00F3digo de Factura: <dynamic>");
+        JLabel lblCodigo = new JLabel("Código de Factura: " + factura.getCodigo());
 		lblCodigo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		JLabel lblCliente = new JLabel("Cliente: " + factura.getCliente().getNombre());
 		JLabel lblFecha = new JLabel("Fecha: " + dateFormat.format(factura.getFecha()));
@@ -93,7 +93,12 @@ public class DetallesFacturaDialog extends JDialog {
 		panel.add(lblCodigo, BorderLayout.NORTH);
 		panel.add(lblCliente, BorderLayout.CENTER);
 		panel.add(lblFecha, BorderLayout.SOUTH);
-		panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		JLabel lblcliente = new JLabel("Cliente: " + factura.getCliente().getNombre());
+		lblcliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		scrollPane.setColumnHeaderView(lblcliente);
 
 		getContentPane().add(panel);
 	}

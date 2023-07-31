@@ -43,9 +43,6 @@ public class ListadoFactura extends JDialog {
 	private JTextField textFieldFacturaPorCodigo;
 	private JTextField textFieldFacturaPorCliente;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListadoFactura dialog = new ListadoFactura();
@@ -56,9 +53,6 @@ public class ListadoFactura extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListadoFactura() {
 		setTitle("LISTADO DE FACTURAS");
 		setResizable(false);
@@ -84,7 +78,7 @@ public class ListadoFactura extends JDialog {
 
 					table = new JTable();
 					table.addMouseListener(new MouseAdapter() {
-						@Override
+						
 						public void mouseClicked(MouseEvent e) {
 							int ind = table.getSelectedRow();
 							if (ind >= 0 ) {
@@ -200,32 +194,33 @@ public class ListadoFactura extends JDialog {
 					}
 				});
 				{
-					 btnmodificar = new JButton("Modificar");
-					 btnmodificar.setForeground(new Color(0, 0, 0));
-					 btnmodificar.setBackground(new Color(102, 0, 255));
-					 btnmodificar.addActionListener(new ActionListener() {
-						 public void actionPerformed(ActionEvent e) {
-						        int filaSeleccionada = table.getSelectedRow();
-						        if (filaSeleccionada >= 0) {
-						            String codigoFactura = table.getValueAt(filaSeleccionada, 0).toString();
-						            Factura facturaSeleccionada = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
-						            if (facturaSeleccionada != null) {
-						                ModificarFactura modificarFacturaDialog = new ModificarFactura(facturaSeleccionada);
-						                modificarFacturaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						                modificarFacturaDialog.setVisible(true);
-						            } else {
-						                JOptionPane.showMessageDialog(null, "No se encontró la factura seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
-						            }
-						        } else {
-						            JOptionPane.showMessageDialog(null, "Seleccione una factura para modificar.", "Información", JOptionPane.INFORMATION_MESSAGE);
-						        }
-						    }
-						});
+					btnmodificar = new JButton("MODIFICAR");
+					btnmodificar.setForeground(new Color(0, 0, 0));
+					btnmodificar.setBackground(new Color(102, 0, 255));
+					btnmodificar.addActionListener(new ActionListener() {
+					    public void actionPerformed(ActionEvent e) {
+					        int filaSeleccionada = table.getSelectedRow();
+					        if (filaSeleccionada >= 0) {
+					            String codigoFactura = table.getValueAt(filaSeleccionada, 0).toString();
+					            Factura facturaSeleccionada = Tienda.getInstance().getFacturaByCodigo(codigoFactura);
+					            if (facturaSeleccionada != null) {
+					                dispose();
+					                ModificarFactura modificarFacturaDialog = new ModificarFactura(facturaSeleccionada);
+					                modificarFacturaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					                modificarFacturaDialog.setVisible(true);
+					            } else {
+					                JOptionPane.showMessageDialog(null, "No se encontró la factura seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+					            }
+					        } else {
+					            JOptionPane.showMessageDialog(null, "Seleccione una factura para modificar.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					        }
+					    }
+					});
+
 
 					btnmodificar.setEnabled(false);
 					buttonPane.add(btnmodificar);
 				}
-
 
 				JButton btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setForeground(new Color(0, 0, 0));
