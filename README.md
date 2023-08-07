@@ -1,4 +1,4 @@
-# SISTEMA_VENTA_COMPONENTES_COMPUTADORAS
+# SISTEMA_VENTAS_COMPONENTES_COMPUTADORAS
 
 This is a project made with the Java language in the Eclipse IDE. This is a software to manage the sale of computer components.
 
