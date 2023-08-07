@@ -1,5 +1,9 @@
 # SISTEMA_VENTA_COMPONENTES_COMPUTADORAS
 
+This is a project made with the Java language in the Eclipse IDE. This is a software to manage the sale of computer components.
+
+Este es un proyecto realizado con el lenguaje Java en el IDE de Eclipse. Este es un software para gestionar la venta de componentes de computadoras.
+
 Ventana de Inicio - Login
 
 ![VENTANA LOGIN](https://github.com/PrismallyFernandez/SISTEMA_VENTA_COMPONENTES_COMPUTADORAS/assets/128163232/8598f04b-9b77-4ec1-a33b-39011b5f2424)
